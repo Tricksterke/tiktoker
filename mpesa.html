@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" 
+    content="width=device-width, initial-scale=0.9, maximum-scale=1.8, user-scalable=0">
+  <meta name="description" content="Secure and seamless payment checkout experience ">
+    <meta name="keywords" content="payment, checkout, secure payment, online payment, ">
+    <meta name="author" content="Payment Team">
+    <meta name="robots" content="index, follow">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>M-Pesa Payment Guide</title>
+    <style>
+        .mpesa-logo {
+            width: 250px;
+            height: auto;
+            margin-right: 16px;
+        }
+
+        .small-text {
+            font-size: 14px;
+        }
+
+        .whatsapp-button {
+            background-color: #25d366;
+            color: #ffffff;
+        }
+
+        .underline-text {
+            text-decoration: underline;
+            color: #25d366;
+        }
+
+        .mpesatext {
+            font-size: small;
+        }
+
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            visibility: hidden; /* initially hidden */
+        }
+
+        .loader-container.active {
+            visibility: visible; /* show when active class is applied */
+        }
+
+        .spinner {
+            width: 11.2px;
+            height: 11.2px;
+            animation: spinner-z355kx 1s infinite linear;
+            border-radius: 11.2px;
+            box-shadow: 28px 0px 0 0 #474bff, 17.4px 21.8px 0 0 #474bff, -6.2px 27.2px 0 0 #474bff, -25.2px 12px 0 0 #474bff, -25.2px -12px 0 0 #474bff, -6.2px -27.2px 0 0 #474bff, 17.4px -21.8px 0 0 #474bff;
+        }
+
+        @keyframes spinner-z355kx {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .container {
+            position: relative;
+        }
+
+        .alert {
+            position: absolute;
+            top: 10px; /* Adjust the top value as needed */
+            right: 10px; /* Adjust the right value as needed */
+            z-index: 100; /* Make sure it's above other elements */
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #f70202; /* Use your preferred alert background color */
+            color: white;
+            border-radius: 5px;
+        }
+
+        .close-btn {
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .smalltext{
+            font-weight: bold;
+            font-style: italic;
+            font-size: small;
+        }
+    </style>
+
+</head>
+
+<body class="bg-gradient-to-r from-blue-500 to-purple-500 text-white font-sans">
+    <div class="container mx-auto mt-10 p-8 bg-white rounded-md shadow-md max-w-md">
+        <div class="alert hide" style="top: 10px;">
+            <span class="fas fa-exclamation-circle"></span>
+            <span class="msg">Auto payments under maintenance! </span>
+            <div class="close-btn">
+                <span class="fas fa-times"></span>
+            </div>
+        </div>
+
+        <div class="alert hide" style="top: 60px;">
+            <span class="fas fa-exclamation-circle"></span>
+            <span class="msg">Share payment screenshot on whatsapp! </span>
+            <div class="close-btn">
+                <span class="fas fa-times"></span>
+            </div>
+        </div>
+       <br><br>
+
+        <div class="flex items-center">
+            <img src="https://www.safaricom.co.ke/images/Lipanampesa.png" alt="M-Pesa Logo" class="mpesa-logo">
+        </div>
+        
+        <h1 class="text-xl font-semibold mb-2 text-gray-800 underline-text"> 
+            <i class="fas fa-credit-card payment-icon"></i>--M-Pesa Payment Guide
+        </h1>
+        <div class="mb-4">
+            <p class="small-text mb-2">Follow these steps to make a payment:</p>
+            <ol class="list-decimal pl-8 text-gray-700">
+                <li class="mb-2 flex items-center small-text">
+                    <i class="fas fa-mobile-alt mr-2 text-green-500"></i>
+                    Go to M-Pesa on your mobile phone
+                </li>
+                <li class="mb-2 flex items-center small-text">
+                    <i class="fas fa-coins mr-2 text-green-500"></i>
+                    Select  (<b>Send Money</b>)
+                </li>
+                <li class="mb-2 flex items-center small-text">
+                    <i class="fas fa-phone-alt mr-2 text-green-500"></i>
+                    Enter the number -<strong>0768290466</strong>
+                </li>
+                <li class="mb-2 flex items-center small-text">
+                    <i class="fas fa-money-bill-wave mr-2 text-green-500"></i>
+                    Enter the amount you want to pay
+                </li>
+                <li class="mb-2 flex items-center small-text">
+                    <i class="fas fa-key mr-2 text-green-500"></i>
+                    Enter your M-Pesa PIN to confirm the transaction
+                </li>
+                <li class="flex items-center small-text">
+                    <i class="fas fa-clock mr-2 text-green-500"></i>
+                    Wait for the confirmation message
+                </li>
+            </ol>
+        </div>
+
+        <h1 class="text-xl font-semibold mb-2 text-gray-800 underline-text mpesatext">Enter M-Pesa Transaction ID to
+            Validate Payment</h1>
+        <input type="text" placeholder="E.G RFO5U94YPX" class="border p-2 rounded-md w-full" style="color: black;"><br><br>
+        <!-- Update the button element -->
+        <button id="validateButton"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            VALIDATE PAYMENT
+        </button>
+
+        <div class="loader-container">
+            <div class="spinner"></div>
+        </div>
+
+        <div class="mt-6 flex items-center justify-between">
+            <p class="small-text text-gray-600 smalltext">If you have any issues or validate payment is not working automatically,
+                click the button below send the payment screenshot to us on WhatsApp</p>
+        </div>
+
+        <div class="mt-2">
+            <a href="https://wa.me/+254775625871" target="_blank"
+                class="whatsapp-button inline-flex items-center px-4 py-2 rounded-md">
+                <i class="fab fa-whatsapp mr-2"></i>
+                Contact us on WhatsApp
+            </a>
+        </div>
+    </div>
+
+    <script>
+       document.addEventListener("DOMContentLoaded", function () {
+    // Select all close buttons
+    var closeButtons = document.querySelectorAll('.close-btn');
+
+    // Add a click event listener to each close button
+    closeButtons.forEach(function (closeButton) {
+        closeButton.addEventListener('click', function () {
+            // Find the parent alert and toggle the 'hide' class
+            var alert = closeButton.closest('.alert');
+            alert.classList.toggle('hide');
+        });
+    });
+
+    // Select the button and input field
+    var validateButton = document.getElementById('validateButton');
+    var inputField = document.querySelector('input');
+    var loaderContainer = document.querySelector('.loader-container');
+
+    // Add a click event listener to the button
+    validateButton.addEventListener('click', function (event) {
+        // Prevent the default form submission behavior
+        event.preventDefault();
+
+        // Get the value from the input field
+        var transactionId = inputField.value.trim(); // Trim to remove leading/trailing spaces
+
+        // Check if the input is empty
+        if (!transactionId) {
+            // If empty, show a SweetAlert with a warning
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: 'Please enter a transaction ID!',
+                confirmButtonColor: '#25d366',
+            });
+        } else {
+            // Show the loader
+            loaderContainer.classList.add('active');
+
+            // Simulate an asynchronous operation (replace this with your validation logic)
+            setTimeout(function () {
+                // Hide the loader
+                loaderContainer.classList.remove('active');
+
+                // Show a SweetAlert with the result
+                Swal.fire({
+                    icon: 'error', // Change to 'success' if the transaction code is correct
+                    title: 'Validation Result',
+                    text: 'Incorrect Transaction Code!',
+                    confirmButtonColor: '#25d366',
+                });
+            }, 3000); // Simulating a 3-second validation process
+        }
+    });
+});
+
+    </script>
+
+</body>
+
+</html>

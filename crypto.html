@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="description" content="Secure and seamless payment checkout experience ">
+    <meta name="keywords" content="payment, checkout, secure payment, online payment, ">
+    <meta name="author" content="Payment Team">
+    <meta name="robots" content="index, follow">
+    <title>Choose Payment Method</title>
+
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</head>
+<body class="bg-gray-200 flex items-center justify-center h-screen">
+
+    <script>
+        function showPaymentPopup() {
+            Swal.fire({
+                title: 'Choose Your Payment Method',
+                icon: 'question',
+                showCloseButton: false,
+                showCancelButton: false,
+                showConfirmButton: false,
+                allowOutsideClick: false, // Prevents closing on clicking outside
+                html: `
+                    <div class="flex justify-between">
+                        <button class="bg-yellow-400 text-gray-800 px-4 py-2 rounded-md m-2" onclick="redirectTo('bitcoin.html')">
+                            <i class="fab fa-bitcoin mr-2"></i> Bitcoin
+                        </button>
+                        <button class="bg-indigo-500 text-white px-4 py-2 rounded-md m-2" onclick="redirectTo('ethereum.html')">
+                            <i class="fab fa-ethereum mr-2"></i> Ethereum
+                        </button>
+                    </div>
+                `
+            });
+        }
+
+        function redirectTo(page) {
+            window.location.href = page;
+        }
+
+        // Call the showPaymentPopup function when the page loads
+        window.onload = showPaymentPopup;
+    </script>
+
+</body>
+</html>

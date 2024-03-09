@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0, user-scalable=0">
+  <title>Order Form</title>
+
+  <!-- Add Tailwind CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <!-- Add SweetAlert2 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <style>
+    .imgs {
+      width: auto;
+      height: 120px;
+    }
+    .imgs1{
+        width: 200px;
+        height: auto;
+    }
+
+    #loader-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+      justify-content: center;
+      align-items: center;
+      z-index: 1000; /* Ensure it's on top of other elements */
+    }
+
+    #loader {
+      border: 8px solid #fff;
+      border-radius: 50%;
+      border-top: 8px solid #3498db;
+      width: 80px;
+      height: 80px;
+      animation: spin 1s linear infinite;
+    }
+
+    .error-text {
+      color: #e53e3e; /* Red color for error messages */
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+     /* Added Flex Container Styles */
+     .image-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+  <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+   <!-- Flex Container for Images -->
+   <div class="image-container">
+    <img src="img/Screenshot 2024-03-08 221710.png" alt="fashion gallery" class="imgs1">
+    <img src="https://img.freepik.com/premium-vector/order-here-sign-logo-design-vector-template_567288-1173.jpg" alt="" class="imgs">
+  </div>
+  <hr><br>
+    <!-- Your existing form HTML here -->
+    <form id="my-form" action="https://formspree.io/f/moqgldrz" method="POST" class="space-y-4">
+      <label for="name" class="block text-sm font-medium text-gray-700">First Name:</label>
+      <input type="text" name="name" id="name" placeholder="Enter your first name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
+      <p id="name-error" class="error-text"></p>
+
+      <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name:</label>
+      <input type="text" name="last_name" id="last_name" placeholder="Enter your last name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
+      <p id="last_name-error" class="error-text"></p>
+
+      <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number:</label>
+      <input type="tel" name="phone" id="phone" placeholder="Enter your phone number" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
+      <p id="phone-error" class="error-text"></p>
+
+      <label for="alternative_number" class="block text-sm font-medium text-gray-700">Alternative Number:</label>
+      <input type="tel" name="alternative_number" id="alternative_number" placeholder="Enter alternative number" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
+      <p id="alternative_number-error" class="error-text"></p>
+
+      <label for="id" class="block text-sm font-medium text-gray-700">ID (Optional):</label>
+      <input type="text" name="id" id="id" placeholder="Enter your ID" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
+
+      <label for="location" class="block text-sm font-medium text-gray-700">Location:</label>
+      <select name="location" id="location" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+        <option value="" disabled selected>Select your county</option>
+        <option value="Nairobi">Nairobi</option>
+        <option value="Mombasa">Mombasa</option>
+        <option value="Kisumu">Kisumu</option>
+        <!-- Add more counties as needed -->
+      </select>
+      <p id="location-error" class="error-text"></p>
+
+      <label for="explanation" class="block text-sm font-medium text-gray-700">Explanation about Location:</label>
+      <textarea name="explanation" id="explanation" rows="4" placeholder="Enter explanation about location" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"></textarea>
+      <p id="explanation-error" class="error-text"></p>
+
+      <label for="email" class="block text-sm font-medium text-gray-700">Email (Optional):</label>
+      <input type="email" name="email" id="email" placeholder="Enter your email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" />
+
+      <button id="my-form-button" type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200">
+        Submit
+        <div id="loader" class="hidden loader"></div>
+      </button>
+      <p id="my-form-status" class="text-blue-500"></p>
+    </form>
+  </div>
+
+  <!-- Loader Overlay -->
+  <div id="loader-overlay">
+    <div id="loader"></div>
+  </div>
+
+  <!-- Add Tailwind CSS JS for responsive features -->
+  <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+
+  <script>
+    var form = document.getElementById("my-form");
+    var loaderOverlay = document.getElementById("loader-overlay");
+
+    function validateForm() {
+      var isValid = true;
+
+      // Reset previous error messages
+      document.getElementById("name-error").innerHTML = "";
+      document.getElementById("last_name-error").innerHTML = "";
+      document.getElementById("phone-error").innerHTML = "";
+      document.getElementById("alternative_number-error").innerHTML = "";
+      document.getElementById("location-error").innerHTML = "";
+      document.getElementById("explanation-error").innerHTML = "";
+
+      // Validate each field
+      if (!form.name.value) {
+        document.getElementById("name-error").innerHTML = "Please enter your first name.";
+        isValid = false;
+      }
+
+      if (!form.last_name.value) {
+        document.getElementById("last_name-error").innerHTML = "Please enter your last name.";
+        isValid = false;
+      }
+
+      if (!form.phone.value) {
+        document.getElementById("phone-error").innerHTML = "Please enter your phone number.";
+        isValid = false;
+      }
+
+      if (!form.location.value) {
+        document.getElementById("location-error").innerHTML = "Please select your location.";
+        isValid = false;
+      }
+
+      if (!form.explanation.value) {
+        document.getElementById("explanation-error").innerHTML = "Please provide an explanation about your location.";
+        isValid = false;
+      }
+
+      // Add more validations for other fields as needed
+
+      return isValid;
+    }
+
+    async function handleSubmit(event) {
+      event.preventDefault();
+      if (!validateForm()) {
+        return;
+      }
+
+      var status = document.getElementById("my-form-status");
+      loaderOverlay.style.display = "flex"; // Show the loader overlay
+      var data = new FormData(event.target);
+      fetch(event.target.action, {
+        method: form.method,
+        body: data,
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(response => {
+        loaderOverlay.style.display = "none"; // Hide the loader overlay after submission
+        if (response.ok) {
+          // Display a success message using SweetAlert2
+          Swal.fire({
+            icon: 'success',
+            title: 'Form successfully submitted!',
+            showConfirmButton: false,
+            timer: 2000 // Adjust the timer as needed (in milliseconds)
+          });
+
+          // Optionally, you can reset the form after successful submission
+          form.reset();
+        } else {
+          response.json().then(data => {
+            if (Object.hasOwnProperty(data, 'errors')) {
+              status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+            } else {
+              status.innerHTML = "Oops! There was a problem submitting your form";
+            }
+          });
+        }
+      }).catch(error => {
+        loaderOverlay.style.display = "none"; // Hide the loader overlay in case of an error
+        status.innerHTML = "Oops! There was a problem submitting your form";
+      });
+    }
+
+    form.addEventListener("submit", handleSubmit);
+  </script>
+
+</body>
+
+</html>

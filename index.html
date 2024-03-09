@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="description" content="Secure and seamless payment checkout experience">
+    <meta name="keywords" content="payment, checkout, secure payment, online payment">
+    <meta name="author" content="Payment Team">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph meta tags for link previews -->
+    <meta property="og:title" content="Payment Method Selection">
+    <meta property="og:description" content="Secure and seamless payment checkout experience">
+    <meta property="og:image" content="img/Screenshot 2024-03-08 221710.png">
+    <meta property="og:url" content="index.html">
+
+    <!-- Fallback image in case the specified image URL fails to load -->
+    <meta property="og:image:secure_url" content="Fallback_image_URL">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.all.min.js"></script>
+    
+    <title>Payment Method Selection</title>
+   <style>
+        body {
+            background-color: #f8f9fa;
+            margin: 0; /* Add this line to remove default margin */
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        /* Combine repeated styles for .payment-logo1 and .payment-logo2 into one */
+        .payment-logo1, .payment-logo2, .payment-logo, .mukuru {
+            max-width: 100px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .payment-logo:hover, .mukuru:hover {
+            transform: scale(1.1);
+        }
+
+        .crypto-box {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            text-align: center;
+            margin: 10px;
+        }
+
+        .crypto-box:hover {
+            background-color: #e9ecef;
+        }
+
+        /* Remove redundant header styles */
+        .header {
+    background-color: #28304a; /* Dark blue-gray color */
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+.header1 {
+    background-color: #ec11117a; /* Dark blue-gray color */
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-text {
+    display: flex;
+    align-items: center;
+}
+
+.logo-initial {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    color: #fff; /* White color for the logo initial */
+    margin-right: 10px;
+}
+
+.header-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    margin: 0;
+    text-align: left;
+    color: #fff; /* White color for the title */
+}
+
+.nav-bar {
+    display: none;
+    flex-grow: 1;
+    justify-content: left;
+}
+
+/* Add a class to style the active state */
+.nav-visible {
+    display: flex;
+}
+
+.nav-bar ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-bar li {
+    margin: 0 15px;
+}
+
+.nav-bar a {
+    text-decoration: none;
+    color: #fff; /* White color for the links */
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+}
+
+.menu-icon {
+    font-size: 24px;
+    color: #fff; /* White color for the menu icon */
+    cursor: pointer;
+}
+
+.checkout a {
+    background-color: #fff; /* White color for the checkout button */
+    color: #28304a; /* Dark blue-gray color for text */
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.checkout a:hover {
+    background-color: #e0e0e0; /* Light gray color on hover */
+    color: #28304a;
+}
+
+
+
+        .unique-shape {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: inherit;
+            clip-path: polygon(0 100%, 100% 100%, 100% 0, 0% 80%);
+        }
+
+        .menu-icon {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 24px;
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin-top: 50px; /* Add margin-top for better separation from the content */
+        }
+
+        .footer a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .footer p {
+            margin: 10px 0 0;
+        }
+
+        .mukuru {
+            width: 150px;
+            height: auto;
+            transition: transform 0.2s ease-in-out;
+        }
+        .remitlylogo{
+            width: 80px;
+            height: auto;
+        }
+        .western-union-logo{
+            width: auto;
+            height: 100px;
+        }
+        .mamamoney{
+            width: auto;
+            height: auto;
+        }
+        .mtn{
+            width: auto;
+            height: auto;
+        }
+        .airtel{
+            width: 90px;
+            height: 80px;
+        }
+        .headone{
+            color: brown;
+            font-weight: bold;
+            font-size: small;
+        }
+        .fog{
+            color: chartreuse;
+        }
+        .logo-initial {
+    font-family: 'Monoton', cursive;
+}
+
+.header-title {
+    font-family: 'Great Vibes', cursive;
+}
+.imgs{
+    height: 140px;
+    width: auto;
+}
+    </style>
+</head>
+<body>
+    
+    <div class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <span class="logo-initial fog">F.G</span>
+                <span class="header-title">Fashion Gallery</span>
+            </div>
+            <li class="checkout"><a href="placeorder.html">ORDER HERE</a></li>
+        </div>
+    </div>
+    
+    <div class="header1">
+        <div class="header-content">
+            <div class="logo-container">
+                <!-- Your logo content goes here -->
+            </div>
+            <div class="menu-icon" onclick="toggleNav()">
+                <span id="menuIcon">&#9776;</span>
+            </div>
+            <nav class="nav-bar" id="navBar">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="placeorder.html">Shop</a></li>
+                    <li><a href="faqs.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    
+
+<div class="container flex-grow">
+    <img src="img/Screenshot 2024-03-08 221710.png" alt="" class="imgs">
+    <h2 class="text-2xl font-semibold mb-4">Select Payment Method</h2>
+    <p class="headone">"Experience secure and swift transactions by paying directly to us, with a variety of payment methods tailored to your country's preferences."<p>
+    <p>Click your preferred payment method to continue.</p>
+    <div class="payment-method">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/M-PESA_LOGO-01.svg" alt="M-Pesa" onclick="handlePayment('mpesa')" class="payment-logo"><hr>
+    <img src="https://logos-world.net/wp-content/uploads/2020/07/PayPal-Logo-500x281.png" alt="PayPal" onclick="handlePayment('paypal')" class="payment-logo"><hr>
+    <img src="https://logowik.com/content/uploads/images/skrill5141.jpg" alt="Skrill" onclick="handlePayment('skrill')" class="payment-logo"><hr>
+    <img src="https://www.airtanzania.co.tz/images/content/tigo_pesa.jpg" alt="TIGO" onclick="handlePayment('tigo')" class="payment-logo"><hr>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/New-mtn-logo.jpg" alt="MTN" onclick="handlePayment('mtn')" class="payment-logo mtn"><hr>
+    <img src="data:image/png;base64,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" alt="VODAFONE" onclick="handlePayment('vodafone')" class="payment-logo"><hr>
+   
+    <img src="https://pbs.twimg.com/profile_images/1399624551496044544/dCjYC5Lx_400x400.png" alt="AIRTEL" onclick="handlePayment('airtel')" class="payment-logo airtel"><hr>
+
+    <img src="https://www.africa-newsroom.com/files/thumb/0f92937db5be622/800/600" alt="Mukuru" onclick="handlePayment('mukuru')" class="mukuru"><hr>
+    <img src="https://img.money.com/2022/09/Best-Crypto-Wallets-Icons-4.png" alt="Mukuru" onclick="handlePayment('crypto')" class="payment-logo"><hr>
+    <img src="https://play-lh.googleusercontent.com/SLBq9uZdhdVYKZeHMRRWJ3QfLWFH8hpKPF192av5F7bMvBhv-AsYAvTK-Ogv84GH1vFf" alt="Remitly" onclick="handlePayment('remitly')" class="payment-logo remitlylogo"><hr>
+    
+    <img src="https://miro.medium.com/v2/resize:fit:843/1*PL8PbSv1DxJVpdYaNPTnvA.png" alt="MAMA-MONEY" onclick="handlePayment('mama')" class="payment-logo mamamoney"><hr>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4H1aKdcGQRgF_m76Y4Y6Iit2w3RtZG458c5lku9P_P1QCATlQdC-VThdBydwmSf0HSwg&usqp=CAU" alt="WORLDREMIT" onclick="handlePayment('worldremit')" class="payment-logo"><hr>
+    <img src="https://i0.wp.com/mid-east.info/wp-content/uploads/2021/03/western-union-logo.jpg?fit=1200%2C600&ssl=1" alt="WESTERN UNION" onclick="handlePayment('westernunion')" class="payment-logo"><hr>
+
+</div>
+
+</div>
+<br>
+<footer class="footer">
+    <a href="faqs.html">FAQs</a>
+    <a href="#">Home</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="terms.html">Terms of Service</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <p>Fashion Gallery. All Rights Reserved 2024</p>
+</footer>
+
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+<script>
+    // Function to handle payment redirection based on the selected payment method
+    function handlePayment(paymentMethod) {
+      // Define the mapping of payment methods to their respective HTML pages
+      const redirectMapping = {
+        'mpesa': 'mpesa.html',
+        'paypal': 'paypal.html',
+        'skrill': 'skrill.html',
+        'mukuru': 'mukuru.html',
+        'crypto': 'crypto.html',
+        'remitly': 'remitly.html',
+        'mtn': 'mtn.html',
+        'tigo': 'tigo.html',
+        'vodafone': 'vodafone.html',
+        'airtel': 'airtel.html',
+        'mama': 'mama.html',
+        'westernunion': 'westernunion.html',
+        'worldremit': 'worldremit.html',
+      };
+  
+      // Get the redirect URL based on the selected payment method
+      const redirectUrl = redirectMapping[paymentMethod];
+  
+      // Redirect the user to the appropriate page
+      if (redirectUrl) {
+        window.location.href = redirectUrl;
+      } else {
+        console.error('Redirect URL not found for the selected payment method.');
+      }
+    }
+  
+    // Function to show a confirmation popup
+    function showConfirmation() {
+      Swal.fire({
+        title: 'Place an Order?',
+        text: 'Do you want to place an order?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // If the user clicks "Yes," show the welcome notification
+          window.location.href = 'placeorder.html';
+        } else {
+          // If the user clicks "No," you can handle it accordingly or do nothing
+          showNotification();
+        }
+      });
+    }
+  
+    // Function to show a notification modal
+    function showNotification() {
+      Swal.fire({
+        title: 'Hello!',
+        text: 'Welcome to our checkout page!',
+        icon: 'success',
+        confirmButtonText: 'Okay'
+      });
+    }
+  
+    document.addEventListener('DOMContentLoaded', function () {
+  // Always show the notification popup
+  showNotification();
+
+  // Simulate a click on the menu icon to show the links
+  if (document.referrer === '') {
+    // If accessed directly, show the confirmation popup
+    showConfirmation();
+  }
+  document.getElementById('menuIcon').click();
+
+  // Check if the user has already closed the nav
+  if (localStorage.getItem('navClosed') === 'true') {
+    closeNav();
+  }
+});
+  
+    function toggleNav() {
+      var navBar = document.getElementById('navBar');
+      var menuIcon = document.getElementById('menuIcon');
+  
+      if (navBar.classList.contains('nav-visible')) {
+        closeNav();
+      } else {
+        openNav();
+      }
+    }
+  
+    function openNav() {
+      var navBar = document.getElementById('navBar');
+      var menuIcon = document.getElementById('menuIcon');
+  
+      navBar.classList.add('nav-visible');
+      menuIcon.innerHTML = '&#10005;'; // Change the icon to 'X'
+      localStorage.setItem('navClosed', 'false');
+    }
+  
+    function closeNav() {
+      var navBar = document.getElementById('navBar');
+      var menuIcon = document.getElementById('menuIcon');
+  
+      navBar.classList.remove('nav-visible');
+      menuIcon.innerHTML = '&#9776;'; // Change the icon to the menu icon
+      localStorage.setItem('navClosed', 'true');
+    }
+  </script>
+</body>
+</html>

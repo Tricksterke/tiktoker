@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Country Selection</title>
+
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- Flag icons CDN (Replace with your preferred flag icon library) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+
+    <style>
+        /* Add any additional styling here */
+        /* For example, you can add styling to center the popup */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Center the popup */
+        #popup {
+            text-align: center;
+        }
+
+        /* Add some spacing between logo and country buttons */
+        #popup img {
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="popup" class="hidden fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
+    <div class="bg-white p-8 rounded shadow-md">
+        <!-- Airtel Money Logo within the popup -->
+        <img src="https://familybank.co.ke/family-bank/wp-content/uploads/2019/10/airtel-money-featured.png" alt="Airtel Money Logo" style="width: 150px;">
+
+        <p class="mb-4 text-lg font-semibold">Please choose your country:</p>
+        <div class="flex flex-col space-y-4">
+            <div class="flex space-x-4">
+                <button onclick="selectCountry('Kenya')" class="py-2 px-4 bg-red-500 text-white rounded flex items-center">
+                    <span class="mr-2 flag-icon flag-icon-ke"></span>
+                    Kenya
+                </button>
+                <button onclick="selectCountry('Rwanda')" class="py-2 px-4 bg-blue-500 text-white rounded flex items-center">
+                    <span class="mr-2 flag-icon flag-icon-rw"></span>
+                    Rwanda
+                </button>
+            </div>
+            <div class="flex space-x-4">
+                <button onclick="selectCountry('Tanzania')" class="py-2 px-4 bg-green-500 text-white rounded flex items-center">
+                    <span class="mr-2 flag-icon flag-icon-tz"></span>
+                    Tanzania
+                </button>
+                <button onclick="selectCountry('Malawi')" class="py-2 px-4 bg-yellow-500 text-white rounded flex items-center">
+                    <span class="mr-2 flag-icon flag-icon-mw"></span>
+                    Malawi
+                </button>
+            </div>
+            <div class="flex space-x-4">
+                <button onclick="selectCountry('Uganda')" class="py-2 px-4 bg-red-500 text-white rounded flex items-center">
+                    <span class="mr-2 flag-icon flag-icon-ug"></span>
+                    Uganda
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to show the popup
+    function showPopup() {
+        document.getElementById('popup').classList.remove('hidden');
+    }
+
+    // Function to handle country selection and redirect
+    function selectCountry(country) {
+        // You can perform additional actions here based on the selected country
+        // For example, you can redirect the user to a specific page or store the selection in a cookie
+
+        // Redirect to the ./airtel/{country}.html page
+        window.location.href = `./airtel/${country.toLowerCase()}.html`;
+    }
+
+    // Call the showPopup function when the page loads
+    document.addEventListener('DOMContentLoaded', function () {
+        showPopup();
+    });
+</script>
+
+
+</body>
+</html>
